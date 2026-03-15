@@ -1,0 +1,308 @@
+[gd_scene format=3 uid="uid://crdp0yv4l4wrb"]
+
+[ext_resource type="Script" uid="uid://dr3upjaejlo61" path="res://scripts/Main.gd"          id="1_main"]
+[ext_resource type="Script"                            path="res://scripts/WorldDraw.gd"     id="2_world"]
+[ext_resource type="Script"                            path="res://scripts/FishermanDraw.gd" id="3_fisherman"]
+[ext_resource type="Script"                            path="res://scripts/BobberDraw.gd"    id="4_bobber"]
+[ext_resource type="Script"                            path="res://scripts/RippleDraw.gd"    id="5_ripple"]
+
+[sub_resource type="StyleBoxFlat" id="SF_panel"]
+bg_color = Color(0.05, 0.10, 0.20, 0.94)
+border_color = Color(0.28, 0.56, 0.84, 0.90)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="SF_minigame"]
+bg_color = Color(0.04, 0.08, 0.18, 0.95)
+border_color = Color(0.22, 0.50, 0.80, 0.80)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.40)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="SF_result"]
+bg_color = Color(0.02, 0.06, 0.14, 0.88)
+border_color = Color(0.24, 0.52, 0.80, 0.70)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="SF_barbg"]
+bg_color = Color(0.10, 0.10, 0.18, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="SF_zone"]
+bg_color = Color(0.20, 0.82, 0.28, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="SF_indicator"]
+bg_color = Color(1.0, 0.88, 0.10, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(1.0, 0.8, 0.0, 0.5)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="SF_btn"]
+bg_color = Color(0.14, 0.50, 0.22, 1)
+border_color = Color(0.22, 0.72, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="SF_hud"]
+bg_color = Color(0.03, 0.07, 0.16, 0.70)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="WorldDraw" type="Node2D" parent="World"]
+script = ExtResource("2_world")
+
+[node name="FishLine" type="Line2D" parent="World"]
+points = PackedVector2Array(145, 416, 800, 516)
+width = 1.8
+default_color = Color(0.82, 0.72, 0.52, 0.90)
+
+[node name="Fisherman" type="Node2D" parent="World"]
+position = Vector2(95, 516)
+script = ExtResource("3_fisherman")
+
+[node name="Bobber" type="Node2D" parent="World"]
+position = Vector2(800, 520)
+script = ExtResource("4_bobber")
+
+[node name="Ripple" type="Node2D" parent="World"]
+visible = false
+position = Vector2(800, 520)
+script = ExtResource("5_ripple")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MenuPanel" type="PanelContainer" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -155.0
+offset_right = 210.0
+offset_bottom = 155.0
+theme_override_styles/panel = SubResource("SF_panel")
+
+[node name="VBox" type="VBoxContainer" parent="UI/MenuPanel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="UI/MenuPanel/VBox"]
+layout_mode = 2
+text = "Fish Game"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0.80, 0.92, 1.0, 1)
+
+[node name="Divider" type="HSeparator" parent="UI/MenuPanel/VBox"]
+layout_mode = 2
+
+[node name="ControlsLabel" type="Label" parent="UI/MenuPanel/VBox"]
+layout_mode = 2
+text = "Mouse  — clique na bolha quando o peixe morder
+ESPACO — pressione na zona certa para fisgar"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.72, 0.85, 0.95, 1)
+autowrap_mode = 3
+
+[node name="FishInfo" type="Label" parent="UI/MenuPanel/VBox"]
+layout_mode = 2
+text = "Peixe Comum +10   Baixo +25   Carpa Dourada +50"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.60, 0.78, 0.55, 1)
+
+[node name="StartButton" type="Button" parent="UI/MenuPanel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 52)
+text = "Jogar"
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("SF_btn")
+theme_override_colors/font_color = Color(0.88, 1.0, 0.88, 1)
+
+[node name="GameUI" type="PanelContainer" parent="UI"]
+visible = false
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 1142.0
+offset_bottom = 52.0
+theme_override_styles/panel = SubResource("SF_hud")
+
+[node name="HBox" type="HBoxContainer" parent="UI/GameUI"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="LivesLabel" type="Label" parent="UI/GameUI/HBox"]
+layout_mode = 2
+text = "Vidas: 3"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1.0, 0.72, 0.72, 1)
+
+[node name="ScoreLabel" type="Label" parent="UI/GameUI/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pontos: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.90, 1.0, 0.72, 1)
+
+[node name="StatusLabel" type="Label" parent="UI/GameUI/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Aguardando..."
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.80, 0.92, 1.0, 1)
+
+[node name="MinigamePanel" type="PanelContainer" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -100.0
+offset_right = 220.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("SF_minigame")
+
+[node name="VBox" type="VBoxContainer" parent="UI/MinigamePanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="FishLabel" type="Label" parent="UI/MinigamePanel/VBox"]
+layout_mode = 2
+text = "Peixe"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.90, 0.96, 1.0, 1)
+
+[node name="Instruction" type="Label" parent="UI/MinigamePanel/VBox"]
+layout_mode = 2
+text = "Pressione ESPACO quando o indicador estiver na zona colorida!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.65, 0.80, 0.95, 1)
+
+[node name="BarContainer" type="Control" parent="UI/MinigamePanel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+
+[node name="BarBG" type="Panel" parent="UI/MinigamePanel/VBox/BarContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("SF_barbg")
+
+[node name="CatchZone" type="Panel" parent="UI/MinigamePanel/VBox/BarContainer"]
+offset_left = 100.0
+offset_top = 0.0
+offset_right = 160.0
+offset_bottom = 44.0
+theme_override_styles/panel = SubResource("SF_zone")
+
+[node name="Indicator" type="Panel" parent="UI/MinigamePanel/VBox/BarContainer"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 8.0
+offset_bottom = 44.0
+theme_override_styles/panel = SubResource("SF_indicator")
+
+[node name="ResultPanel" type="PanelContainer" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -55.0
+offset_right = 200.0
+offset_bottom = 55.0
+theme_override_styles/panel = SubResource("SF_result")
+
+[node name="ResultLabel" type="Label" parent="UI/ResultPanel"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+
+[node name="GameOverPanel" type="PanelContainer" parent="UI"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -130.0
+offset_right = 200.0
+offset_bottom = 130.0
+theme_override_styles/panel = SubResource("SF_panel")
+
+[node name="VBox" type="VBoxContainer" parent="UI/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="GameOverLabel" type="Label" parent="UI/GameOverPanel/VBox"]
+layout_mode = 2
+text = "Game Over!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1.0, 0.72, 0.72, 1)
+autowrap_mode = 3
+
+[node name="RestartButton" type="Button" parent="UI/GameOverPanel/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 48)
+text = "Jogar Novamente"
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("SF_btn")
+theme_override_colors/font_color = Color(0.88, 1.0, 0.88, 1)
+
+[connection signal="pressed" from="UI/MenuPanel/VBox/StartButton"       to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="UI/GameOverPanel/VBox/RestartButton" to="." method="_on_restart_button_pressed"]
